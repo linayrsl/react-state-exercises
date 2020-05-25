@@ -7,11 +7,34 @@ import React, { Component } from 'react';
  */
 
 class Clock extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			clock: new Date()
+		};
+	}
+
+	componentDidMount() {
+		this.clockTimer = setInterval(() => {
+			this.updateClock()
+		}, 1000);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.clockTimer);
+	}
+
+	updateClock() {
+		this.setState({
+			clock: new Date()
+		});
+	}
+
 	render() {
 		return (
 			<div>
 				<h1>Clock</h1>
-				The time is:
+				The time is: {this.state.clock.toString()}
 			</div>
 		);
 	}

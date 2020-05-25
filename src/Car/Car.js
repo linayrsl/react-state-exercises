@@ -8,11 +8,26 @@ import './Car.css';
  */
 
 class Car extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			carColor: ""
+		};
+	}
+
+	changeCarColor(event) {
+		let color = event.target.value;
+		this.setState({
+			carColor: color
+		});
+	}
+
 	render() {
 		return (
 			<div>
 				<h1>Choose a color for your car:</h1>
-				<select>
+				<select onChange={this.changeCarColor.bind(this)} >
 					<option value="silver">silver</option>
 					<option value="red">red</option>
 					<option value="blue">blue</option>
@@ -21,7 +36,11 @@ class Car extends Component {
 				</select>
 				<br />
 				<br />
-				<div className="Car-color">Color example</div>
+				<div
+					style={{backgroundColor: this.state.carColor}}
+					className="Car-color">
+					Color example
+				</div>
 			</div>
 		);
 	}

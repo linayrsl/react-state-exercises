@@ -6,17 +6,61 @@ import React, { Component } from 'react';
  */
 
 class FoodPicker extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			name: "",
+			restaurant: "",
+			meal: "",
+			desert: false
+		};
+		this.name = React.createRef();
+	}
+
+	changeNameHandler(event) {
+		this.setState({
+			name: event.target.value,
+		});
+	}
+
+	chooseRestaurantHandler(event) {
+		this.setState({
+			restaurant: event.target.value
+		});
+	}
+
+	chooseFavouriteMealHandler(event) {
+		this.setState({
+			meal: event.target.value
+		});
+	}
+
+	desertOrderHandler(event) {
+		if (event.target.checked === true) {
+			this.setState({
+				desert: true
+			});
+		} else {
+				this.setState({
+					desert: false
+				});
+		}
+	}
+
 	render() {
 		return (
 			<div>
 				<h1>Order special meal:</h1>
 				<div>
 					Your name:
-					<input type="text" />
+					<input
+						onChange={this.changeNameHandler.bind(this)}
+						type="text" />
 				</div>
 				<div>
 					Choose restaurant:
-					<select>
+					<select onChange={this.chooseRestaurantHandler.bind(this)}>
 						<option value="Frangelico">Frangelico</option>
 						<option value="Mina Tomei">Mina Tomei</option>
 						<option value="Rak Basar">Rak Basar</option>
@@ -25,19 +69,23 @@ class FoodPicker extends Component {
 				</div>
 				<div>
 					Favorite meal:
-					<input type="text" />
+					<input
+						onChange={this.chooseFavouriteMealHandler.bind(this)}
+						type="text" />
 				</div>
 				<div>
 					Want a desert?
-					<input type="checkbox" />
+					<input
+						onClick={this.desertOrderHandler.bind(this)}
+						type="checkbox" />
 				</div>
 
 				<div>
 					<h2>Your reservation:</h2>
-					Hi [NAME]! <br />
-					We are glad you want to reserve a table at [RESTAURANT].<br />
-					We will make sure that your favorite meal, [MEAL] is available.<br />
-					Additionally, our chef will make a special desert for you!<br />
+					Hi {this.state.name}! <br />
+					We are glad you want to reserve a table at {this.state.restaurant}.<br />
+					We will make sure that your favorite meal, {this.state.meal} is available.<br />
+					{this.state.desert === true ? "Additionally, our chef will make a special desert for you!" : ""}<br />
 				</div>
 			</div>
 		);

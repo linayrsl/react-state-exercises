@@ -10,14 +10,45 @@ import './Board.css';
  */
 
 class Board extends Component {
+	blueColor = "#6495ee";
+	redColor = "red";
+	constructor(props) {
+		super(props);
+		this.state = {
+			chosenBoard: -1
+		};
+		this.handleClick = this.handleClick.bind(this);
+	}
+
+	handleClick(chosenBoard) {
+		this.setState({
+			chosenBoard
+		});
+	}
+
 	render() {
 		return (
 			<div className="Board">
 				<h1>Choose board:</h1>
 				<div className="boards">
-					<div className="Board-option">1</div>
-					<div className="Board-option">2</div>
-					<div className="Board-option">3</div>
+					<div
+						onClick={() => this.handleClick(1)}
+						style={{borderColor: this.state.chosenBoard === 1 ? this.redColor : this.blueColor}}
+						className="Board-option">
+						1
+					</div>
+					<div
+						onClick={() => this.handleClick(2)}
+						style={{borderColor: this.state.chosenBoard === 2 ? this.redColor : this.blueColor}}
+						className="Board-option">
+						2
+					</div>
+					<div
+						onClick={() => this.handleClick(3)}
+						style={{borderColor: this.state.chosenBoard === 3 ? this.redColor : this.blueColor}}
+						className="Board-option">
+						3
+					</div>
 				</div>
 			</div>
 		);
